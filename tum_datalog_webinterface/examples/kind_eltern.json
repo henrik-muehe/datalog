@@ -1,0 +1,16 @@
+{
+  "name": "Kind - Eltern (griechische Goetter und Helden)",
+  "description": "Ein einf%uuml;hrendes Beispiel zur Rekursion in Datalog.",
+  "source": "&Uml;bung zur Vorlesung",
+  "ruleset": [
+  	"kindEltern(zeus,leto,apollo).",
+  	"kindEltern(zeus,leto,artemis).",
+  	"kindEltern(zeus,maia,hermes).",
+  	"kindEltern(koios,phoebe,leto).",
+  	"kindEltern(atlas,pleione,maia).",
+  	"kindEltern(kronos,rheia,hades).",
+  	"kindEltern(kronos,rheia,poseidon).",
+  	"kindEltern(kronos,rheia,zeus)."
+  ],
+  "query": "kindEltern(zeus,leto,KIND)"
+}
