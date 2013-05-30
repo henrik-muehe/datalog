@@ -1,6 +1,6 @@
 {
   "name": "tum-datalog-webinterface",
-  "description": "A simple web interface for the Datalog Education System.",
+  "description": "A simple web interface for the Datalog Educational System.",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
