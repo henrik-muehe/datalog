@@ -1,0 +1,7 @@
+{
+	"port": 3000,
+	"desExecutable": "H:\\Downloads\\des\\des.exe",
+	"examplesDirectory": "examples",
+	"tempDirectory": "C:\\Users\\hl\\AppData\\Local\\Temp",
+	"desTimeLimitMillis": 15000
+}
