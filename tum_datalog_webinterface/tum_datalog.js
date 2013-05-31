@@ -95,8 +95,6 @@ app.post('/datalog', function (req, res) {
     try {
     	fs.unlinkSync(tempFile);
     } catch (err) {}
-//    console.log('child process exited with code ' + code);
-//    console.log('done');
     if (computationTimeExceeded) {
     	answer = "---  Sorry, computation time exceeded...  ----"
     }
@@ -107,25 +105,18 @@ app.post('/datalog', function (req, res) {
   
   // consult the previously written file
   desProcess.stdin.write('/consult ' + tempFile + '\n');
-  
-  // enter multiline mode
-  desProcess.stdin.write('/multiline on' + '\n');
-//  desProcess.stdin.write('/multiline' + '\n');
-  
-  req.body.query = req.body.query.trim();
-  if (!req.body.query.endsWith(".")) {
-  	req.body.query += ".";
-  }
-  
-  // submit query
-  var query = req.body.query.split(/\n/);
-  query.forEach(function(line) {
-//  	console.log(line);
-  	desProcess.stdin.write(line + '\n');
+ 
+	// transform query into a single line string
+  var queryLines = req.body.query.split(/\n/);
+  var query = "";
+  queryLines.forEach(function(line) {
+  	query += line + " ";
   });
-  desProcess.stdin.write('.' + '\n');
+	console.log("Executing query: " + query);
+
+  // submit query
+  desProcess.stdin.write(query + '\n');
   
-//  desProcess.stdin.write('/multiline' + '\n');
   // terminate the process
   desProcess.stdin.end();  
 });
