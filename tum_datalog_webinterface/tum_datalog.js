@@ -42,7 +42,7 @@ app.post('/datalog', function (req, res) {
 
   req.assert('query', 'required').notEmpty();
   req.assert('query', 'max. 128 characters allowed').len(0, 128);
-  req.assert('query', 'query contains unallowed characters').is(/^[_\ \\a-zA-Z0-9(),\.]+$/);
+  req.assert('query', 'query contains unallowed characters').is(/^[_=':\-\+<>\ \\a-zA-Z0-9\%\n\r(),;\.\t]+$/);
 
   var validationErrors = req.validationErrors();
   if (validationErrors) {
@@ -95,8 +95,8 @@ app.post('/datalog', function (req, res) {
     try {
     	fs.unlinkSync(tempFile);
     } catch (err) {}
-    //console.log('child process exited with code ' + code);
-    //console.log('done');
+//    console.log('child process exited with code ' + code);
+//    console.log('done');
     if (computationTimeExceeded) {
     	answer = "---  Sorry, computation time exceeded...  ----"
     }
@@ -108,12 +108,26 @@ app.post('/datalog', function (req, res) {
   // consult the previously written file
   desProcess.stdin.write('/consult ' + tempFile + '\n');
   
+  // enter multiline mode
+  desProcess.stdin.write('/multiline on' + '\n');
+//  desProcess.stdin.write('/multiline' + '\n');
+  
+  req.body.query = req.body.query.trim();
+  if (!req.body.query.endsWith(".")) {
+  	req.body.query += ".";
+  }
+  
   // submit query
-  desProcess.stdin.write(req.body.query + '\n');
+  var query = req.body.query.split(/\n/);
+  query.forEach(function(line) {
+//  	console.log(line);
+  	desProcess.stdin.write(line + '\n');
+  });
+  desProcess.stdin.write('.' + '\n');
   
+//  desProcess.stdin.write('/multiline' + '\n');
   // terminate the process
-  desProcess.stdin.end();
-  
+  desProcess.stdin.end();  
 });
 
 // Examples REST service. Delivers the examples to the client.
@@ -138,7 +152,7 @@ app.get('/examples', function (req, res) {
 		}
   });
 	res.json(exampleDescriptors);
-  
+
 });
 
 

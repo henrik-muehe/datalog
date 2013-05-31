@@ -13,7 +13,7 @@
 		
 		var jsonRequest = {
 			"ruleset" : $("#rulesetTextArea").val(),
-			"query" : $("#queryTextField").val()
+			"query" : $("#queryTextArea").val()
 		}
 		$("#answerTextArea").val("Einen Moment bitte. Ihre Anfrage wird verarbeitet...");
 
@@ -58,7 +58,7 @@
 					rules += rule + "\n";
 				})
 				$("#rulesetTextArea").val(rules);
-				$("#queryTextField").val(data.query);
+				$("#queryTextArea").val(data.query);
 				$("#answerTextArea").val("");
 			},
 			failure : function(errMsg) {
@@ -127,9 +127,11 @@
 	</div>
 
 
-	<p style="align: center">
-		<font color="#808080" size="+2">Datalog Schnittstelle (BETA)</font>
-	</p>
+	<div align="center">
+		<p>
+			<font color="#808080" size="+2">Datalog Schnittstelle (BETA)</font>
+		</p>
+	</div>
 
 	<div id="datalogTop" style="width:75%;margin:0px auto;">
 	
@@ -147,9 +149,9 @@
 		  Fakten und Regeln:<br />
 			<textarea id="rulesetTextArea" rows="20" cols="80" name="ruleset" style="width:100%;font-family:monospace"></textarea>
 			<br><br> Anfrage:<br /> 
-			<input id="queryTextField" type="text" name="query" size="80" value="" style="width:100%;font-family:monospace">
+			<textarea id="queryTextArea" rows="4" cols="80" name="query" style="width:100%;font-family:monospace"></textarea>
 			<div align="center">
-			  <br><button id="queryButton">Anfrage abschicken</button>
+			  <button id="queryButton">Anfrage abschicken</button>
 			</div>
 
 			<div id="datalogAnswer">
