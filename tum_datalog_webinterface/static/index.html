@@ -11,6 +11,13 @@
 	var runQuery = function() {
 		$("#queryButton").attr("disabled", "disabled");
 		
+		var gotResponseFromServer = false;
+		setTimeout(function() {
+			if (!gotResponseFromServer) {
+				$("#queryButton").removeAttr("disabled");
+				$("#answerTextArea").val("Connection timed out.");
+			}
+		}, 30000);
 		var jsonRequest = {
 			"ruleset" : $("#rulesetTextArea").val(),
 			"query" : $("#queryTextArea").val()
@@ -22,6 +29,7 @@
 			url : "/datalog",
 			data : jsonRequest,
 			success : function(data) {
+				gotResponseFromServer = true;
 				$("#queryButton").removeAttr("disabled");
 				if (data.error) {
 					$("#answerTextArea").val(data.error);
@@ -30,6 +38,7 @@
 				}
 			},
 			failure : function(errMsg) {
+				gotResponseFromServer = true;
 				$("#queryButton").removeAttr("disabled");
 				alert(errMsg);
 			}
