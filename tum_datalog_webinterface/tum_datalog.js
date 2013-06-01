@@ -38,11 +38,11 @@ app.post('/datalog', function (req, res) {
 	// validate user input
   req.assert('ruleset', 'required').notEmpty();
   req.assert('ruleset', 'max. 4096 characters allowed').len(0, 4096);
-  req.assert('ruleset', 'ruleset contains unallowed characters').is(/^[_=':\-\+<>\ \\a-zA-Z0-9\%\n\r(),;\.\t]+$/);
+  req.assert('ruleset', 'ruleset contains unallowed characters').is(/^[\[\]_=':\-\+<>\ \\a-zA-Z0-9\%\n\r(),;\.\t]+$/);
 
   req.assert('query', 'required').notEmpty();
   req.assert('query', 'max. 128 characters allowed').len(0, 128);
-  req.assert('query', 'query contains unallowed characters').is(/^[_=':\-\+<>\ \\a-zA-Z0-9\%\n\r(),;\.\t]+$/);
+  req.assert('query', 'query contains unallowed characters').is(/^[_[\[\]=':\-\+<>\ \\a-zA-Z0-9\%\n\r(),;\.\t]+$/);
 
   var validationErrors = req.validationErrors();
   if (validationErrors) {
@@ -84,8 +84,8 @@ app.post('/datalog', function (req, res) {
     data = '' + data;
     if (!data.match(/^\*/g)) {
       data = data.replace(/DES>/g, '');
+      data = data.replace(/\r\n\r\n/g, '\n');
       answer = answer + data;
-      //console.log(data); 
     }
   });
   
@@ -112,7 +112,7 @@ app.post('/datalog', function (req, res) {
   queryLines.forEach(function(line) {
   	query += line + " ";
   });
-	console.log("Executing query: " + query);
+	console.log("Executing query " + counter + ": " + query);
 
   // submit query
   desProcess.stdin.write(query + '\n');
@@ -143,7 +143,6 @@ app.get('/examples', function (req, res) {
 		}
   });
 	res.json(exampleDescriptors);
-
 });
 
 
