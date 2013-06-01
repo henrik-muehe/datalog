@@ -41,7 +41,7 @@ app.post('/datalog', function (req, res) {
   req.assert('ruleset', 'ruleset contains unallowed characters').is(/^[\[\]_=':\-\+<>\ \\a-zA-Z0-9\%\n\r(),;\.\t]+$/);
 
   req.assert('query', 'required').notEmpty();
-  req.assert('query', 'max. 128 characters allowed').len(0, 128);
+  req.assert('query', 'max. 1024 characters allowed').len(0, 1024);
   req.assert('query', 'query contains unallowed characters').is(/^[_[\[\]=':\-\+<>\ \\a-zA-Z0-9\%\n\r(),;\.\t]+$/);
 
   var validationErrors = req.validationErrors();
