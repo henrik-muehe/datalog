@@ -35,7 +35,8 @@ var counter = 0;
 // Datalog REST service
 app.post('/datalog', function (req, res) {
 
-	// validate user input
+  // validate user input
+  // WARNING: Don't allow forward slashes!
   req.assert('ruleset', 'required').notEmpty();
   req.assert('ruleset', 'max. 4096 characters allowed').len(0, 4096);
   req.assert('ruleset', 'ruleset contains unallowed characters').is(/^[\[\]_=':\-\+<>\ \\a-zA-Z0-9\%\n\r(),;\.\t]+$/);
@@ -85,6 +86,8 @@ app.post('/datalog', function (req, res) {
     if (!data.match(/^\*/g)) {
       data = data.replace(/DES>/g, '');
       data = data.replace(/\r\n\r\n/g, '\n');
+      data = data.replace(/Info: [0-9]+ rule[s]? consulted\./, '');
+      data = data.replace(/Info: [0-9]+ tuple[s]? computed\./, '');
       answer = answer + data;
     }
   });
@@ -97,6 +100,14 @@ app.post('/datalog', function (req, res) {
     } catch (err) {}
     if (computationTimeExceeded) {
     	answer = "---  Sorry, computation time exceeded...  ----"
+    } else {
+    	var answerLines = answer.split('\n');
+    	answer = '';
+    	answerLines.forEach(function(line) {
+    		if (line.trim() != '') {
+  				answer += line + "\n";
+  			}
+  		});
     }
     res.json({ 
       'answer': answer
@@ -124,10 +135,10 @@ app.post('/datalog', function (req, res) {
 // Examples REST service. Delivers the examples to the client.
 app.get('/examples', function (req, res) {
 
-	// reads the contents of the examples directory
-	// and sends a list to the client.
-	
-	// the examples are delivered as static content
+  // reads the contents of the examples directory
+  // and sends a list to the client.
+
+  // the examples are delivered as static content
   var exampleDescriptors = [];
   var exampleFiles = fs.readdirSync(config.examplesDirectory);
   exampleFiles.forEach(function(file) {
