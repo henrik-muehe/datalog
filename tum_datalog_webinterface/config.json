@@ -1,7 +1,8 @@
 {
-	"port": 3000,
-	"desExecutable": "H:\\Downloads\\des\\des.exe",
+	"port": 64111,
+	"desExecutable": "/home/muehe/des/des",
+	"desDirectory": "/home/muehe/des/",
 	"examplesDirectory": "examples",
-	"tempDirectory": "C:\\Users\\hl\\AppData\\Local\\Temp",
+	"tempDirectory": "/tmp",
 	"desTimeLimitMillis": 15000
 }

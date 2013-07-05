@@ -63,7 +63,7 @@ app.post('/datalog', function (req, res) {
   });
 
   // start a DES process and connect the streams
-  var desProcess = spawn(config.desExecutable);
+  var desProcess = spawn(config.desExecutable,[],{cwd:config.desDirectory});
   var desProcessIsRunning = true;
   var computationTimeExceeded = false;
   var answer = '';
