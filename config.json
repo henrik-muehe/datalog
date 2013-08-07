@@ -1,0 +1,8 @@
+{
+	"port": 8080,
+	"desExecutable": "/opt/des/des",
+	"desDirectory": "/opt/des/",
+	"examplesDirectory": "examples",
+	"tempDirectory": "/tmp",
+	"desTimeLimitMillis": 5000
+}

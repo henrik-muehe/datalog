@@ -1,8 +1,0 @@
-{
-	"port": 64111,
-	"desExecutable": "/home/muehe/des/des",
-	"desDirectory": "/home/muehe/des/",
-	"examplesDirectory": "examples",
-	"tempDirectory": "/tmp",
-	"desTimeLimitMillis": 15000
-}

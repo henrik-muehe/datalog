@@ -1,5 +1,5 @@
 {
-  "name": "tum-datalog-webinterface",
+  "name": "datalog",
   "description": "A simple web interface for the Datalog Educational System.",
   "version": "0.0.1",
   "private": true,
