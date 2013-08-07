@@ -12,14 +12,12 @@ var app = express();
 // serve static content from the 'static' directory
 app.use(express.static('static'));
 
-// serve static content from the 'examples' directory
-app.use("/examples", express.static('examples'));
-
 // use body parser to get access to form data
 app.use(express.bodyParser());
+app.use("/examples", express.static('examples'));
 
 // use the input validator
-app.use(expressValidator);
+app.use(expressValidator());
 
 // add a 'endsWith' function to String
 String.prototype.endsWith = function(suffix) {
@@ -134,7 +132,6 @@ app.post('/datalog', function (req, res) {
 
 // Examples REST service. Delivers the examples to the client.
 app.get('/examples', function (req, res) {
-
   // reads the contents of the examples directory
   // and sends a list to the client.
 
@@ -158,4 +155,3 @@ app.get('/examples', function (req, res) {
 
 
 app.listen(config.port);
-console.log('Started web service on port ' + config.port + '.');
