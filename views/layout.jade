@@ -1,0 +1,45 @@
+!!! 5
+head
+	title Datalog Interface
+	meta(property="og:title",content="XQuery Interface")
+	meta(property="og:image",content="/screenshot.png")
+	meta(name='viewport', content='width=device-width, initial-scale=1.0')
+	link(rel='stylesheet', href='/bower/codemirror/lib/codemirror.css')
+	link(rel='stylesheet', href='/bower/codemirror/theme/xq-light.css')
+	link(rel='stylesheet', href='/bower/bootstrap/bootstrap/css/bootstrap.min.css')
+	style(type='text/css').
+		body { padding-top: 60px; padding-bottom: 40px; }
+		.sidebar-nav { padding: 9px 0; }
+	link(rel='stylesheet', href='/bower/bootstrap/bootstrap/css/bootstrap-responsive.min.css')
+	block header
+body
+	.navbar.navbar-fixed-top
+		.navbar-inner
+			.container-fluid
+				.brand
+					a(href="/") Datalog Interface
+				block navigation
+
+	script(src="/bower/jquery/jquery.min.js")
+	script(src="/bower/codemirror/lib/codemirror.js")
+
+	block body
+
+	script(src="/examples.js")
+	script(src="/app.js")
+
+	div.navbar.navbar-fixed-bottom
+		.navbar-inner
+			.container-fluid
+				.row-fluid
+					.span6(style="line-height:40px")
+						| Copyright <a href="mailto:henrik.muehe@gmail.com">Henrik Mühe</a>, 2013
+					.span6(style="line-height:40px")
+						ul.nav.pull-right
+							li
+								a(href="https://github.com/henrik-muehe/datalog") sourcecode
+							li
+								a(href="http://muehe.org") blog
+
+
+	script(src="/bower/bootstrap/bootstrap/js/bootstrap.min.js")

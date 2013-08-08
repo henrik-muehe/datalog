@@ -1,10 +1,14 @@
 {
   "name": "datalog",
   "description": "A simple web interface for the Datalog Educational System.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "dependencies": {
     "express": "3.x",
-    "express-validator" : "*"
+    "express-validator" : "*",
+    "jade": "*",
+    "coffee-script": "*",
+    "nodemon": "*",
+    "bower": "*"
   }
 }

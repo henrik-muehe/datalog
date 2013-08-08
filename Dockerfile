@@ -14,10 +14,6 @@ RUN add-apt-repository -y ppa:chris-lea/node.js
 RUN apt-get update
 RUN apt-get -y install nodejs
 
-# Install src and modules
-ADD . /src
-RUN cd /src ; npm install
-
 # Install tmux, wget, unzip
 RUN apt-get -y install tmux wget unzip
 
@@ -31,6 +27,11 @@ RUN cd /tmp ; wget "http://downloads.sourceforge.net/project/des/des/des3.3.1/DE
 RUN cd /opt ; unzip /tmp/DES*
 RUN cd /opt/des ; echo '/opt/swi-prolog/bin/swipl -g "ensure_loaded(des)"' >> des
 RUN cd /opt/des ; chmod 755 des
+
+# Install src and modules
+ADD . /src
+RUN cd /src ; make install
+RUN cd /src ; make
 
 # Run
 EXPOSE 8080

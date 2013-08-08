@@ -10,11 +10,11 @@ var express = require('express'),
 var app = express();
 
 // serve static content from the 'static' directory
-app.use(express.static('static'));
+app.use(express.static('public'));
 
 // use body parser to get access to form data
 app.use(express.bodyParser());
-app.use("/examples", express.static('examples'));
+app.use("/bower", express.static('bower_components'));
 
 // use the input validator
 app.use(expressValidator());
@@ -81,13 +81,7 @@ app.post('/datalog', function (req, res) {
   // reading the standard output of DES
   desProcess.stdout.on('data', function (data) {
     data = '' + data;
-    if (!data.match(/^\*/g)) {
-      data = data.replace(/DES>/g, '');
-      data = data.replace(/\r\n\r\n/g, '\n');
-      data = data.replace(/Info: [0-9]+ rule[s]? consulted\./, '');
-      data = data.replace(/Info: [0-9]+ tuple[s]? computed\./, '');
-      answer = answer + data;
-    }
+    answer = answer + data;
   });
   
   // send the answer after the computation has been finished
@@ -98,15 +92,9 @@ app.post('/datalog', function (req, res) {
     } catch (err) {}
     if (computationTimeExceeded) {
     	answer = "---  Sorry, computation time exceeded...  ----"
-    } else {
-    	var answerLines = answer.split('\n');
-    	answer = '';
-    	answerLines.forEach(function(line) {
-    		if (line.trim() != '') {
-  				answer += line + "\n";
-  			}
-  		});
     }
+    answer=answer.replace(/^[^]*\{/,'{');
+    answer=answer.replace(/}[^]*$/,'}');
     res.json({ 
       'answer': answer
     });
