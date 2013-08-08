@@ -1,5 +1,8 @@
-XQuery Web Interface for BaseX
+Datalog Web Interface for DES
 ==========================================
+
+Check it out at http://datalog.muehe.org
+
 
 LICENSE
 =======
