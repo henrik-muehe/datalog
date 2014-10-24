@@ -1,7 +1,7 @@
 Datalog Web Interface for DES
 ==========================================
 
-Check it out at http://datalog.muehe.org
+Check it out at http://datalog.db.in.tum.de/
 
 
 LICENSE
