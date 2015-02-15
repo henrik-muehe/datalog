@@ -1,12 +1,12 @@
-FROM base
+FROM ubuntu:14.04
 MAINTAINER Henrik Mühe <henrik.muehe@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 
 # Fake upstart
-RUN dpkg-divert --local --rename --add /sbin/initctl
-RUN ln -s /bin/true /sbin/initctl
+#RUN dpkg-divert --local --rename --add /sbin/initctl
+#RUN ln -s /bin/true /sbin/initctl
 
 # Install node
 RUN apt-get -y install software-properties-common python-software-properties python g++ make

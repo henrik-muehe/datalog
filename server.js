@@ -5,7 +5,11 @@ var express = require('express'),
     util  = require('util'),
     spawn = require('child_process').spawn,
     fs = require('fs'),
-    expressValidator = require('express-validator');
+    expressValidator = require('express-validator'),
+    bodyParser = require('body-parser');
+
+// read configuration file
+var config = JSON.parse(fs.readFileSync('config.json','utf8')); 
     
 var app = express();
 
@@ -13,19 +17,17 @@ var app = express();
 app.use(express.static('public'));
 
 // use body parser to get access to form data
-app.use(express.bodyParser());
-app.use("/bower", express.static('bower_components'));
-
+app.use(bodyParser.urlencoded({ extended: true }));
 // use the input validator
 app.use(expressValidator());
+app.use("/bower", express.static('bower_components'));
+
 
 // add a 'endsWith' function to String
 String.prototype.endsWith = function(suffix) {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
 };
 
-// read configuration file
-var config = JSON.parse(fs.readFileSync('config.json','utf8')); 
 
 // used to create temporary files
 var counter = 0;
@@ -37,11 +39,11 @@ app.post('/datalog', function (req, res) {
   // WARNING: Don't allow forward slashes!
   req.assert('ruleset', 'required').notEmpty();
   req.assert('ruleset', 'max. 4096 characters allowed').len(0, 4096);
-  req.assert('ruleset', 'ruleset contains unallowed characters').is(/^[\[\]_=':\-\+<>\ \\a-zA-Z0-9\%\n\r(),;\.\t]+$/);
+  req.assert('ruleset', 'ruleset contains unallowed characters').matches(/^[\[\]_=':\-\+<>\ \\a-zA-Z0-9\%\n\r(),;\.\t]+$/);
 
   req.assert('query', 'required').notEmpty();
   req.assert('query', 'max. 1024 characters allowed').len(0, 1024);
-  req.assert('query', 'query contains unallowed characters').is(/^[_[\[\]=':\-\+<>\ \\a-zA-Z0-9\%\n\r(),;\.\t]+$/);
+  req.assert('query', 'query contains unallowed characters').matches(/^[_[\[\]=':\-\+<>\ \\a-zA-Z0-9\%\n\r(),;\.\t]+$/);
 
   var validationErrors = req.validationErrors();
   if (validationErrors) {

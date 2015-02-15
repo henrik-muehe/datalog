@@ -4,8 +4,9 @@
   "version": "0.0.2",
   "private": true,
   "dependencies": {
-    "express": "3.x",
+    "express": "4.x",
     "express-validator" : "*",
+    "body-parser": "*",
     "jade": "*",
     "coffee-script": "*",
     "nodemon": "*",
